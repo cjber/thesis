@@ -1,0 +1,198 @@
+## Conclusion {#sec-conclusion}
+
+This final chapter first summarises the key findings of this thesis in @sec-summary, then outlines the contributions in @sec-contributions. Limitations of the thesis are then considered in @sec-limitations, before suggesting areas for future related research in @sec-futurework.
+
+## Summary of Research Findings {#sec-summary}
+
+This thesis addressed the three key aims introduced in @sec-fullintroduction; the following section restates these aims and summarises how each empirical chapter achieved them.
+
+> **Aim 1:** _Improve the results of existing geoparsing systems for place name recognition, and outline the potential for unstructured text to provide geographic knowledge._
+
+@sec-transformer fulfilled this aim by building a custom NER model for place name extraction and evaluating the performance of this model against existing geoparsing systems. Given NER models have been traditionally more difficult to implement, as good results were usually only achieved through complex neural network models, which require large volumes of training data, many geoparsing systems use pre-built models. These pre-built models are intended for general entity recognition, meaning place names are not specifically targeted by them, resulting in lower-quality outputs. However, recent developments in deep learning have enabled simpler implementations of these complex models, where good results on NER tasks may be achieved without the iterative construction of deep neural networks from the ground up. The introduction of pre-trained transformer models, commonly known as Large Language Models (LLMs), has shifted model construction for NLP tasks in this direction. Fine-tuning transformer models for specific tasks only requires the addition of a head layer to the model architecture, and given they are pre-trained, fine-tuning often achieves good results with comparably small training data. 
+
+To demonstrate the ability to build a task-specific NER model from the ground up for place name identification in this chapter, a corpus of 200 Wikipedia article abstracts relating to 'place' articles in the United Kingdom were annotated with place names. This corpus represented a collection of text that is both data-specific; targeting only place names in the United Kingdom, and task-specific; place names were annotated, rather than general entities like persons or geopolitical entities. This corpus was then used to train a collection of three of the most common pre-trained transformer models (BERT, DistilBERT, RoBERTa), and evaluated against pre-built NER models that are used in existing geoparsing systems (SpaCy, Stanza). The best performing fine-tuned transformer model was BERT, which achieved an F~1~ score of 0.939 compared with 0.730 from the Stanza pre-built NER model. This result demonstrated the performance gap that can be expected between a pre-built model like Stanza, and the task and data-specific model built in the paper.
+
+Finally, this chapter notes that with accurate geoparsing systems, existing sources of online text present the opportunity to harvest large volumes of geographic data, that have been previously underutilised. To demonstrate this, the fine-turned BERT model was used to extract place names from all UK Wikipedia article abstracts. In total 62,178 unique place names were identified on Wikipedia that did not already exist within the GeoNames gazetteer. Notable instances occurred with colloquial differences in place names, for example when articles referred to the 'M1 motorway' as simply the 'M1', or fine-grained locations like street names.
+
+> **Aim 2:** _Generate insights into the place-based cognitive associations between locations, through the analysis of locations geoparsed extracted from informal social media text._
+
+This aim was achieved in @sec-connections, using a large corpus of informal comments taken from the social media website Reddit. Following on from the observations made in @sec-transformer, @sec-connections demonstrates that, by building a task and data specific NER model and broader geoparsing system, a large volume of informal geographic knowledge may be extracted directly from these comments. Reddit is a notably underused source of social media data, particularly in geographic research, given the lack of geography-specific metadata like geotags. This chapter demonstrates that despite having no geographic metadata, the unstructured text through communication between users Reddit may be geoparsed directly to generate geographic information in the form of place names with associated coordinate information.
+
+The primary focus of this chapter is the generation of the perceived strength of associations between geographic regions in Great Britain from Reddit comments. While physical geographic networks have been examined in detail, few works have considered how the persistent perceived associations between locations may be measured. Foundational geographic research noted on the role of human cognition in the generation of mental images of geographic environments [@lynch1964], where perceived spatial structures and associations are influenced by individuals' experience and geographic knowledge. @sec-connections suggests that informal text from social media captures this informal geographic knowledge, enabling mental maps to be quantified and aggregated from the perspective of a large volume of individuals. These mental maps contribute the perceived associations between places, where association strength is numerically represented through the proportion of co-occurring locational mentions in geoparsed text.
+
+To explore the geographic properties of these associations, this chapter demonstrates the impact of distance on the strength of these associations, using a gravity model to measure the level of distance decay. While a distance decay effect is a noted and well established concept in physical interactions, due to the spatial and temporal constraints of physical movements, the perceived associations between locations are not bounded by these constraints. This chapter therefore hypothesises that unexpected patterns may be derived when considering association strength and distance decay, that may not correspond with physical interactions.
+
+@sec-connections found that a distance decay effect was present from the perspective of perceived associations between places, suggesting that geographic properties are embedded within this informal text. However, these associations generated divergent patterns, particularly in major cities like London, where perceived associations were strong regardless of distance, and locations in Scotland, where associations with England were weaker. 
+
+> **Aim 3:** _Examine the geographic variation in the semantic properties of text associated with place names extracted from social media._
+
+@sec-footprint achieves this aim by extracting semantic embeddings relating to geoparsed locations from the Reddit corpus. These aggregate semantic representations of locations and regions generated were named 'semantic footprints', representing the collective informal geographic knowledge of each user in this corpus, built through their vernacular geography. 
+
+While other works have considered the ability to quantify geographic heterogeneity in social media text, they have relied on geotags, which rarely relate directly with semantic information that exists within any associated text. These works therefore typically examine the lexicons associated with geotagged posts and attribute the geographic heterogeneity of these lexicons to the dialects of users. Instead, this chapter suggests that given the identity of geographic locations is built from a multitude of informal geographic knowledge, deeper semantic representations instead capture the vernacular geography embedded within social media text that contributes to these identities.
+
+To achieve this goal, two key changes were made to past work that examined geographic heterogeneity between geotagged social media text. First, place names directly embedded within text present the opportunity to directly capture vernacular geography contributing informal geographic knowledge relating to embedded locations, rather than geotags. Secondly, deep semantic representations of associated text were generated using a large language model (LLM). Unlike lexicons, where word order is not preserved, and no semantic information is captured, these embeddings act as high dimensional numerical semantic representations of comments associated with locations, allowing for a direct comparison between semantic footprints.
+
+In @sec-footprint, like dialects and physical networks, semantic footprints also exhibit geographically cohesive properties, where there is a global positive level of spatial autocorrelation. The shared similarity of embeddings are typically clustered in select areas across Great Britain, like Wales, Scotland, and London. This also conforms with past work that found these spatially cohesive properties of text and networks often conform with administrative boundaries. When examining the differences between larger scale administrative aggregations, these three regions are the most semantically distinct from the rest of the country. When generating identities associated with these regional corpora using an LLM, identity is likely captured through the vernacular geography embedded within these footprints, given Welsh and Scottish locations are typically more strongly associated with their respective national identities.
+
+## Contributions {#sec-contributions}
+
+The contributions of this thesis are broadly categorised into the physical data and code produced as part of each empirical chapter, and the theoretical contributions that have been developed. The theoretical contributions particularly relate to the expansion of place-based geographic research, presenting new methodologies that enable alternative forms of embedded geographic knowledge to be extracted from informal natural language text. Data and code contributions are intended to assist with future research for place-based knowledge extraction from social media text, giving researchers access to all data used, and the code that enables results to be replicated, or reproduced with alternative data.
+
+### Data and Code Contributions
+
+This thesis contributes the Reddit comment data, consisting of a collection of over 8 million comments relating to locations across the UK, with embedded locations geoparsed, allowing future research to utilise this new source of geographic information. This data source represents a collection of 4,616,290 locational mentions, with 305,104 unique locations, and 54,285 unique geocoded locations. Additionally, the processed Reddit comments data highlighting cognitive associations from @sec-connections, and the semantic footprints from @sec-footprint are made available for future research. All code associated with the empirical chapters of this thesis are hosted and version controlled across individual [GitHub repositories](https://github.com/cjber). The annotated corpus of Wikipedia and Reddit comments used to train NER models in @sec-transformer and @sec-connections are also made available, allowing future research to consider the ability to directly extract place names, without relying on unrelated existing NER corpora. The trained NER model for place name extraction from Reddit is also made available, and hosted on the [Hugging Face Model Hub](https://huggingface.co/cjber/reddit-ner-place_names).
+
+The following outlines all data and code contributions for each empirical chapter:
+
+**@sec-transformer:** 
+
+* [GitHub Repository](https://github.com/cjber/ger-wiki)
+* [Wikipedia abstracts with place names annotated for NER training](https://github.com/cjber/ger-wiki/tree/main/data_processing/data/processed)
+
+**@sec-connections:**
+
+* [GitHub Repository](https://github.com/cjber/reddit-connectivity)
+* [DagsHub Repository](https://dagshub.com/cjber/reddit-connectivity)
+* [Reddit NER Model for place name extraction](https://huggingface.co/cjber/reddit-ner-place_names)
+* [Reddit Comments with place names manually annotated for NER training](https://github.com/cjber/reddit-model/blob/main/data/doccano_annotated.jsonl)
+* [UK Reddit comments with identified place names](https://dagshub.com/cjber/reddit-connectivity/raw/52222d9ec58865abde56ccc238cf70204ce3e35a/data/out/places_full.parquet)
+* [UK Reddit comments with identified place names (excluding non geocoded locations)](https://dagshub.com/cjber/reddit-connectivity/raw/52222d9ec58865abde56ccc238cf70204ce3e35a/data/out/places.parquet)
+* [Place associations aggregated to H3](https://dagshub.com/cjber/reddit-connectivity/raw/52222d9ec58865abde56ccc238cf70204ce3e35a/data/out/pci_h3.parquet) 
+* [Place associations aggregated to UK LAD](https://dagshub.com/cjber/reddit-connectivity/raw/52222d9ec58865abde56ccc238cf70204ce3e35a/data/out/pci_lad.parquet)
+* [Place associations with no aggregation](https://dagshub.com/cjber/reddit-connectivity/raw/52222d9ec58865abde56ccc238cf70204ce3e35a/data/out/pci.parquet)
+
+**@sec-footprint:**
+
+* [GitHub Repository](https://github.com/cjber/reddit-footprint)
+* [DagsHub Repository](https://dagshub.com/cjber/reddit-footprint)
+* [Semantic footprints aggregated to UK LAD](https://dagshub.com/cjber/reddit-footprint/raw/177a160406a9d92a39ba5110fa8ca5f3769e71cc/data/processed/lad_embeddings.parquet)
+* [Semantic footprints aggregated to H3](https://dagshub.com/cjber/reddit-footprint/raw/177a160406a9d92a39ba5110fa8ca5f3769e71cc/data/processed/h3_embeddings.parquet)
+* [Semantic footprints aggregated to RGN](https://dagshub.com/cjber/reddit-footprint/raw/177a160406a9d92a39ba5110fa8ca5f3769e71cc/data/processed/region_embeddings.parquet)
+* [Zero Shot Classifications](https://dagshub.com/cjber/reddit-footprint/src/main/data/processed/places_zero_shot.parquet)
+
+### Theoretical Contributions
+
+In addressing the aims outlined in the introduction, this thesis has broadened the scope of place-based geographic research, allowing for an additional geographic dimension from unstructured text to be captured. While text was previously considered a by-product of communications between users on social media, and without much geographic value, the geoparsing methodology presented in @sec-transformer allows for geographic information to be directly quantified. While explicit geographic information through geotags is often available on social media platforms, the depth and scale of geographic knowledge that exists within text is much greater. By geoparsing locational mentions from a large corpus of informal geographic discussions from Reddit, @sec-connections and @sec-footprint both demonstrate that alternative place-based representations may be generated, deriving insights from the semantic properties of text that capture vernacular geography.
+
+Particular contributions to place-based literature are presented through the methodologies developed in @sec-connections and @sec-footprint. While most place-based geographic research has predominantly relied on geotags to harvest informal geographic knowledge from social media to generate informal cognitive footprints, embedded geographic information within text allows for alternative place-based representations to be captured.
+
+@sec-connections first notes that when locations are mentioned in a shared context within text, they form an implicit subconscious association. This theory then allows for association strengths to be generated between each geoparsed location, analogous to the strength of interaction between locations that are captured through the physical movements of populations. This chapter theorises that while physical movements may be used to generate interaction measures, they may not necessarily be representative of the informal and subconscious associations between locations that individuals hold. By harvesting informal associations through co-occurring locational mentions on social media however, this knowledge is more accurately captured, directly relating with the informal nature of place. 
+
+In @sec-footprint, vernacular knowledge regarding locations is embedded within the comments of Reddit users when locations are mentioned. This chapter explores whether this vernacular geography exhibits cohesive geographic properties, and whether certain regions within Great Britain are more semantically isolated. 'Semantic footprints' of geoparsed locations are first generated; embedded representations of the text associated with locational mentions, created using a large language model. These semantic footprints capture contextual semantic information regarding each location identified in our corpus, representing the informal geographic knowledge contributed by each user. Given these are numerical representations, they may be directly compared using cosine similarity and tested for geographic cohesion through a spatial autocorrelation analysis.
+
+While the primary focus of existing quantitative place-based research tends to concentrate on generating cognitive footprints through geotagged social media, this thesis instead demonstrates that social media text may also be harvested for this place-based information. In particular the methods developed through these chapters capture a new dimension to the study of place, that has not been achieved in past work, enabled through the consideration of the vernacular geography that is present within informal social communications.
+
+### Substantive Contributions
+
+The first substantive contributions highlight problems with existing NER systems used in geoparsing, and how they are addressed. @sec-transformer demonstrates that pre-built NER models that are commonly used in geoparsing systems do not appear to perform as well as advertised, achieving F1 scores for place name extraction that fall below the advertised scores for these models. Few works consider building custom NER models due to the requirement of annotated data and complex model building, however, using simpler, pre-trained language models, the volume of annotated data required to achieve good results is lower than expected. Finally, this chapter finds that when place names are extracted from a large volume of natural language text on Wikipedia, many are absent from the GeoNames gazetteer. These names come from fine-grained locations like street names, or alternative colloquial names like the 'M1' rather than the 'M1 motorway'.
+
+Other substantive contributions come through the methodologies used to analyse locational references geoparsed from Reddit comments. By examining the strength of associations between locations, @sec-connections finds that while a distance decay effect is observable, it is variable across geographic space. As expected, associations do not necessarily respect distance, particularly between major cities like London and Manchester, where there is a stronger association, despite being geographically distant. Other association patterns are observed in Scotland, where larger distances have an overall lower effect on the reduction in association strength compared to locations in England.
+
+In @sec-footprint, the semantic footprints generated are broadly geographically cohesive, correlating with distinct national boundaries of Great Britain. While semantic information regarding locations is similar across Scotland, Wales and London, it appears less cohesive in England, where spatial autocorrelation is lower. The results of the analysis in this chapter suggest that the strength of locational identities across Scotland, Wales, and London are stronger compared with most of England, where identities are likely more localised, rather than permeating across broader regions.
+
+The contributions of these two chapters highlight the perception of locations that are captured through language and generated subconsciously by the collective users in the corpus of Reddit comments. These results therefore present an aggregate perception with respect to UK locations, capturing a bias that is more representative of the broader population of the UK, compared with the perception of individuals.
+
+## Limitations {#sec-limitations}
+
+### Representativeness of contributions
+
+Contributions to social media platforms are voluntary, meaning they are not representative of the population, compared with large scale surveys with known research designs. Many users contribute a significantly larger volume of comments compared with the average, and Reddit itself consists of a non-representative demographic. Despite this, the number of users that contribute to Reddit is very large and doesn't rely on active participation through contributions to traditional VGI. In total almost 500,000 unique users contribute over 8 million comments that form this corpus, representing a collection of volunteered geographic knowledge that would be unfeasible to capture through alternative data sources.
+
+While the demographic information regarding contributing users is not accessible, @sec-connections explores the imbalance in contributions made by each author. While 213,764 users mentioned at least one place name, 1% accounted for 32% of all place name mentions, representing 2,137 users. While this does suggest that a proportionally low volume of users are capable of shaping the outputs of our analysis, there are still an large volume of users contributing place names. 
+
+### Accuracy of Geoparsing
+
+While the methods developed in this thesis improve on existing geoparsing methodologies for the task undertaken, there are still issues to consider. The NER model trained in @sec-connections to identify place names in Reddit comments achieves an F~1~ score of 0.752, which suggests that there are instances where the model does not accurately identify place names. This may have led to bias; for example the model may struggle to identify Welsh place names compared with English place names, particularly when users use the Welsh language, which is unable to be parsed by the model. This is however difficult to accurately assess, given the volume of place names that would need to be considered. The geocoding stage is also imperfect, particularly given the inclusion of all fine-grained place names within the UK. For example, many place names that are mentioned in comments relate to locations external to the UK, but exist as lesser known locations in the UK (e.g. Dublin, Suffolk^[https://gridreferencefinder.com?gr=TM1638869500|dublin|1&t=dublin&v=r]). This problem primarily stems from the use of the Ordnance Survey Open Names (OSON) dataset as a knowledge base for the geocoding of identified locations. OSON is not primarily intended as a gazetteer and is only used over GeoNames as OSON has far better coverage of fine-grained locations in the United Kingdom. These fine-grained locations however are typically much more difficult to accurately geoparse, and OSON does not include metadata that would assist with some ambiguous place names, like population sizes. The geocoding stage of the geoparsing system in this thesis therefore balances this potential noise with the ability to capture more fine-grained locations compared with existing systems.
+
+### Geographic Representations of Place
+
+The final limitation of the methodology implemented in this thesis relates to the strictly defined models of space, that are implemented by the majority of gazetteers and other geographic datasets [@goodchild2011;@westerholt2021]. In object based spatial models, points, lines, or polygons are used to represent spatial objects at varying generalisations; for example, depending on scale, a building may be considered a point or a polygon [@purves2018]. While representing building footprints as a polygon is sensible, given they generally have definite boundaries, for other spatial objects this isn't the case. Many named places have vague spatial extents, particularly with non-administrative or vernacular names; for example, the extent of 'the North' in England is often debated [@jewell1994].
+
+As with many formal geographic data sources, gazetteers typically represent place footprints using the typical object based model of space, where location is represented using 2D coordinate information [@purves2018;@goodchild2008;@goodchild2011]. Despite the variety of geospatial representations possible (See Table \ref{tbl-representation}; @hill2000), places are also typically represented as a single 2D point at the estimated centre location, with the view that each place should have a single officially defined name, which isn't always the case [@goodchild2008]. For example, the 'M1 Motorway' as listed in GeoNames may be colloquially referred to as just 'the M1' both in informal and official contexts (highlighted in @sec-transformer). Gazetteers are additionally generally limited in resolution, excluding a large volume of intra-urban detail that is found in natural language, like street names, neighbourhoods, or landmarks [@machado2010].
+
+\begin{table}
+    \centering
+    \caption{Types of geographic representation \label{tbl-representation}}
+    \fontsize{9}{11}\selectfont
+    \begin{tabular}{lp{3in}}
+    \toprule
+        \textbf{Type of Representation} & \textbf{Description} \\
+    \midrule
+        Point & Single pair of latitude \& longitude coordinates \\
+        Bounding Box & Double pair of coordinates representing the maximum and minimum longitude extent \\
+        Line & Set of points that do not enclose a space \\
+        Polygon & Set of points that do enclose a space \\
+        Grid Representation & Grid references to a location according to an identified grid referencing scheme \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+Traditional gazetteers therefore do not permit an interface between the vagueness of place and the formality of their data representations [@goodchild2011;@cresswell2014;@fisher2005], excluding the vague boundaries and names associated with vernacular geography [@bar2016;@ke2009]. Alternative ontologies for the 'platial' representation of space have been described in depth [@gantner2011;@laurini2015;@machado2010;@jones2001;@westerholt2021;@westerholt2020], with some models that consider the ability to capture imprecise but stronger semantic associations such as the 'south of France', or 'up-state New York' [@jones2008], which are commonly encountered in natural language. Given vagueness is a prominent concept in place-based research, better representations particularly rely on moving away from single coordinate pairs to represent locations [@purves2018]. Progress has however been limited, given the complexity of computing with such representations, where established geographic methodologies typically focus solely on Euclidean space.
+
+The spatial representations used by the gazetteer in this thesis have limited the geocoding accuracy of place names identified in Reddit comments; alternative place names are unable to be captured, and footprints are all represented as a single point.  For example, London as geoparsed has the same spatial extent as a small town or even a named road. To combat this limitation, we aggregate locations identified in our Reddit comments in @sec-connections and @sec-footprint. Aggregation enables these nearby locations to be combined, where they are likely to share a spatial footprint, which provides a more accurate representation (e.g. parks within a city).
+
+## Future Research {#sec-futurework}
+
+The research presented by this thesis has generated ideas and evidence for several innovative extensions and future work. Firstly, while the primary geographic component in natural language text exists as place names, they are not the only geographic information that may be harvested. Geoparsing systems and studies focus purely on the identification and resolution of place names that are contained within gazetteers, which ignores a significant proportion of the geographic natural language that is present within most of the text being processed. As an example, @zhang2014 present _'Van ploughs into Salvation Army Store in Sydney'_ to highlight issues associated with ambiguous place names (the tweet refers to a city in Canada). However, any practical use case for the geographic information extracted from such a Tweet relies on a finer geographic resolution. In this example, conceptually, the named location _'Salvation Army Store'_ is resolvable, and the tweet contains additional geographic expressions which relate the identifiable geographic objects in the sentence, here in bold; _'Van ploughs **into** Salvation Army Store **in** Sydney'_.
+
+The ability to extract this geographic information has been considered for some time, for example @jones2008 outline key research areas and challenges in Geographic Information Retrieval:
+
+* Detecting geographic references in the form of place names and associated spatial natural language qualifiers within text documents.
+* Geometric interpretation of the meaning of vague place names, such as the 'Midlands' and of vague spatial language such as 'near'.
+
+To better understand the geographic components in natural language, two improvements to geoparsing may be drawn;
+
+1. All geographic elements in text should be considered and classified, without focussing purely on place names.
+
+2. Gazetteers should consider the representation of place, rather than a single resolved point.
+
+There are therefore two key geographic components in text that are largely ignored by existing research; _non-specific locations_, and _spatial relations_. The following two sections outline in more detail the existing work that considers this information and what could be done to improve this research.
+
+### Non-Specific Locations
+
+Existing research primarily focusses on the extraction of coordinate information of points of interest (POI) from social media. @li2014 for example identify named point of interest POI mentions within tweets using a POI inventory built from _Foursquare^[<https://foursquare.com>]_ user-generated data, and extend their processing methods to determine whether the user is currently at the POI mentioned. @gao2017 demonstrate a more heuristic method by considering only the general terms for a POI such as park or restaurant to construct a POI gazetteer by identifying instances of these words in geotagged text. @middleton2014 note that from their analysis of tweets relating to a flooding event, the locational information often includes references to specific buildings, road and other geographic features like local parks, rivers, and beaches. Members of the public may also use more vague information relating to their location, the expression 'rural area', or 'industrial area' require a qualitative interpretation, requiring an understanding of the demographic, sociological or economic characteristics areas [@bilhaut2003].
+
+Alternatively @al-olimat2019 explore _geocoding spatial expressions_, in which they note that the expression _'beaches near Dayton'_ requires an understanding of the term _'beaches'_, and the spatial extent of the toponym _'Dayton'_. The ability to quantify these spatial expressions is therefore essential for future work to consider the ability to geoparse fine-grained, non-specific locations from text.
+
+
+### Spatial Role Labelling
+
+@kordjamshidi2010 present Spatial Role Labelling (SpRL) as the task of identification and labelling of _spatial expressions_ in natural language, capturing individual spatial entities, and the spatial relationships between them. The _spatial relationships_ (SR) between these entities are formed of three components. The _trajector_ objects (TR); spatial entities where a spatial reference is being described, _landmark_ objects (LM); spatial entities used as a reference point in a spatial relationship, and _spatial indicators_ (SI); the connecting phrase, usually a preposition, which links the spatial components in a particular relation. Figure \ref{fig-gpos} gives an example sentence where these three components are highlighted with semantic links [@aflaki2018a].
+
+<!--
+SpRL Figure, included separately.
+-->
+\input{06_conclusion/06_figures/gpos.tex}
+
+Additionally, region connection calculus could potentially be used to classify specific geographic relationships, shown on Figure \ref{fig-rcc} [@randell1992;@cohn1997].
+
+![Visual correspondence of RCC8 relations.](./06_figures/rcc.pdf){#fig-rcc}
+
+Using this theory, we can then consider an implementation of SpRL using the following extract from a Wikipedia abstract:
+
+_Headingley is a suburb of Leeds, West Yorkshire, England, approximately two miles out of the city centre, to the north west along the A660 road._
+
+This may be split into the following geographic relationships:
+
+_Relationship:_ **Headingley**~e1~ is a suburb in **Leeds**~e2~...  
+_Label:_ NTPP(e1, e2)
+
+_Relationship:_ **Headingley**~e1~ is a **suburb**~e2~ in Leeds...  
+_Label:_ EQ(e1, e2)
+
+_Relationship:_ **Headingley**~e1~ ... _two miles_ out of the **city centre**~e2~...  
+Label: DC(e1, e2) _(mod: two miles)_
+
+_Relationship:_ **Headingley**~e1~ ... along the **A660**~e2~ road.  
+_Label:_ EC(e1, e2)
+
+Note that `eq()` relationships can only exist between a named entity and a nominal. All other relationships must exist between two named entities.
+
+### Alternative Non-text Based Place Representations
+
+Moving away from text, alternative approaches have also been demonstrated that enable the capture of place-based information from traditional sources of VGI. For example, network analysis has been used to replicate foundational work on the image of cities [@lynch1964], demonstrating that geographical representations of nodes and edges contribute importance to individuals, where results share similarities with qualitative mapping participation [@filomena2019].
+
+## Concluding Remarks
+
+This thesis has demonstrated the ability to extract place-based geographic knowledge from the perspective of numerous individuals contributing to informal discussions on social media platforms. While traditional explorations of place have utilised explicit geographic markers like geotags, the abundant volume of informal natural language text, produced through informal communication between users, instead presents the opportunity to harvest alternative geographic knowledge. The contextual semantic information that directly relates to embedded place names in this text has enabled the development of alternative methodologies to generate place-based geographic analysis in this thesis. 
+
+The improvements to geoparsing methods in @sec-transformer first enable this knowledge to be associated with existing formalisations of geography, by identifying place names in text, which are then associated with coordinate information. The following chapters then consider how this new form of geographic knowledge may be used to generate alternative formalisations of place. @sec-connections explores how cognitive representations of geography incorporate subconscious associations between locations, that do not necessarily reflect formal geographic concepts like the Euclidean distance between them. While @sec-footprint notes that semantic footprints of locations tend to exhibit geographically cohesive variation, with clusters appearing in regions like Wales, Scotland, or London.

@@ -1,0 +1,44 @@
+# Chapter 4 Appendix
+
+## Additional Figures
+
+@fig-workflow2 gives a more detailed overview of the data processing of Reddit comments.
+
+![Overview of the (a) Pre-processing pipeline, showing the generation of locations with their associated users, where users are associated if they mention the target location at least once in a comment. (b) Co-occurrence pipeline, demonstrating generation of $\mathbf{S}_i\mathbf{S}_j$ and $\mathbf{S}_{ij}$ for a connection between $i = \texttt{Manchester}$ and $j = \texttt{London}$.](appendices_figures/workflow_c.pdf){#fig-workflow2}
+
+## Detailed Model Training
+
+An annotated corpus created at the Workshop on Noisy User-generated Text (WNUT) 2017 used to train the NER model built in this study^[https://huggingface.co/datasets/wnut_17]. This workshop defined the shared task on ‘Novel and Emerging Entity Recognition’ with the goal of creating an annotated corpus of informal text from various online sources, with entities that are not frequently encountered. In total this corpus covers 5,690 individual documents from Reddit, Twitter, YouTube, and StackExchange [@derczynski2017]. In addition, 1,001 individual comments from the Reddit corpus were annotated to first evaluate the performance of our model, before re-training our model used for inference, with this data included.
+
+To prepare the WNUT-17 data for model training, all unrelated entities were removed, keeping only those with the 'location' tag, considering any other token to be ‘other’. This ensured that the model did not attempt to learn any irrelevant information regarding other tags found within WNUT (e.g. persons). The model was built using the BERT-base pre-trained transformer language model as a base [@devlin2019], fine-tuned on the WNUT data using the Hugging Face NER model architecture, which adds a linear head to the BERT transformer. PyTorch lightning was used to handle the training loop, including optimisation and performance evaluation, using 10% of the data as a validation subset taken from the WNUT corpus, to perform early stopping. Once trained, the model weights that performed the best with respect to their F~1~ score on this validation subset were evaluated by finding the F~1~ score using a random selection of 1001 manually labelled Reddit comments. After obtaining this F~1~ score, we then re-trained the model using this manually annotated data, to ensure as much data as possible was used for training. This model was then used to obtain mentions of place names in all Reddit comments and is available on the [HuggingFace Model Hub](https://huggingface.co/cjber/reddit-ner-place_names), with instructions for implementing the model in Python.
+
+Table \ref{tbl-perf} compares the place name extraction performance of NER models trained on a selection of the most popular NER corpora, evaluated on a collection of 1,001 Reddit comments. First the WNUT 17 corpus is considered, which is relatively small, and less popular than alternatives, but considers social media text specifically. Second is the CoNLL 2003 corpus which is by far the most popular NER corpus used to train models, and is trained on a collection of Reuters news articles. We also consider CoNLLpp, which fixes around 5% annotation mistakes in the original CoNLL 2003 corpus. All of these corpora use the CoNLL03 annotation style, meaning to identify place names only the 'LOC' entity is used. Finally, the 'OntoNotes 5' corpus is considered, which contains a larger number of examples compared with CoNLL 2003, and uses a different annotation style, again this corpus is trained primarily on news articles. In terms of locational entities OntoNotes 5 considers 'GPE' (geopolitical entities), 'LOC' (locations), and 'FAC' (facilities), all of which are designated as locations in this comparison^[[Entities chosen by the Mordecai geoparser.](https://github.com/openeventdata/mordecai/blob/9d37110f6cd1275852548fc53fd7a21bb77593f9/mordecai/geoparse.py#L511)].
+
+Interestingly, each of these corpora achieve similar F~1~ scores, with CoNLLpp slightly ahead. Differences appear in the test loss where WNUT 17 is notably lower, which appears to correlate with a notably higher recall. WNUT 17 precision is however lower overall compared with the other corpora. This result is interesting and reflects the distinction in corpora given WNUT 17 is trained on social media text, while others are trained primarily on news articles. 
+
+In the work presented in @sec-connections, given place names are geocoded to known geographic locations, recall was considered to be the most important metric, and WNUT 17 was chosen as the baseline model, which was then augmented with the 1,001 Reddit comments in the model used for inference.
+
+\begin{table}
+\caption{\label{tbl-perf} Performance of NER models trained on a selection of the most popular NER corpora, evaluated on a collection of 1,001 Reddit comments.}
+\centering
+\fontsize{9}{11}\selectfont
+\begin{tabular}[t]{lcc|cccc}
+\toprule
+\textbf{Model} & \textbf{Corpus Size} & \textbf{Time Taken (m)} & \textbf{Test Loss} & \textbf{Test Recall} & \textbf{Test Precision} & \textbf{Test F1} \\
+\midrule
+WNUT 17 & 5,690 & 7.26 & \textbf{0.0338} & \textbf{0.850} & 0.708 & 0.752 \\
+CoNLL 2003 & 20,744 & 34.32 & 0.0543 & 0.726 & 0.830 & 0.750 \\
+CoNLLpp & 20,744 & 43.9 & 0.545 & 0.728 & \textbf{0.834} & \textbf{0.753} \\
+OntoNotes5 & 76,714 & 109.00 & 0.487 & 0.731 & 0.813 & 0.749 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+## Detailed Geocoding
+
+Many identified place names identified in Reddit comments appear multiple times within the Ordnance Survey Open Names gazetteer, but with different coordinates. For example in England there are two cities named 'Newcastle', and over 60 streets named 'High Street'. To identify the most appropriate associated coordinate information, a disambiguation technique was used that relies on other contextual place names. The following gives an overview of this processing for a single target place name.
+
+1. For a target place name, find all other place names mentioned within the same sentence, within the same subreddit. These are contextual place names.
+2. Match each contextual place name and the target place name to every entry within the gazetteer. This gives a large collection of place names each with multiple possible coordinates.
+3. Find the mean distance between all contextual coordinates and every target coordinate.
+4. Select the target place name with the smallest mean distance to the contextual place names.

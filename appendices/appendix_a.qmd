@@ -1,0 +1,22 @@
+# Chapter 3 Appendix
+
+## Additional Model Metrics
+
+\ref{tbl-model-metrics} shows additional information regarding the models trained in @sec-transformer. This table highlights the trade-offs in model size and training time, particularly between CRF biLSTM and transformer models.
+
+\begin{table}
+    \centering
+    \caption{\label{tbl-model-metrics}Model test performance for each model trained on annotated Wikipedia data. Best F\textsubscript{1} score in bold. Italics indicate a significant difference in F\textsubscript{1} score with respect to 'DistilBERT'. \label{tbl-model-metrics}}
+    \fontsize{9}{11}\selectfont
+    \begin{tabular}[t]{lccc}
+    \toprule
+        \textbf{Model} & \textbf{Size (MB)} & \textbf{Time (S)} & \textbf{F1 Overall} \\
+    \midrule
+        DistilBERT & 260.8 & 100 & \textbf{0.933} \\
+        RoBERTa & 498.7 & 168 & 0.931 \\
+        BERT & 433.4 & 184 & 0.928 \\
+        \textit{CRF} & \textit{7.4} & \textit{159} & \textit{0.908} \\
+        \textit{CRF (basic)} & \textit{6.3} & \textit{110} & \textit{0.695} \\
+    \bottomrule
+    \end{tabular}
+\end{table}

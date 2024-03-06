@@ -1,0 +1,75 @@
+project:
+  type: book
+  output-dir: .
+
+book:
+  title: Exploring Place from the Perspective of Informal Social Media Text
+  author:
+    name: Cillian Berragan
+  # search: true
+  # repo-actions: [edit]
+  # downloads: [pdf, epub]
+  # sharing: [twitter, facebook]
+  cover-image: images/logo.png
+  chapters:
+    - index.qmd
+    # - ./01_introduction/01_introduction.qmd # currently has to be included in index.qmd
+    - ./02_literature/02_literature.qmd
+    - ./03_transformer/03_transformer.qmd
+    - ./04_connections/04_connections.qmd
+    - ./05_footprint/05_footprint.qmd
+    - ./06_conclusion/06_conclusion.qmd
+    - ./references.qmd
+  appendices:
+    - ./appendices/appendix_a.qmd
+    - ./appendices/appendix_b.qmd
+    - ./appendices/appendix_c.qmd
+    - ./appendices/appendix_d.qmd
+
+  # site-url: https://nmfs-opensci.github.io/quarto-thesis/
+  # repo-url: https://github.com/nmfs-opensci/quarto-thesis
+  # repo-actions: [edit, source, issue]
+  # search: true
+
+thesis:
+  supervisor:
+    name: |
+      Prof. Alex Singleton\
+      Dr. Alessia Calafiore\
+      Dr. Patrick Ballantyne
+  degree-name: Doctor of Philosophy
+  university: University of Liverpool
+  department: Department of Geography and Planning
+  group: Geographic Data Science Lab
+  faculty: Geographic Data Science Lab
+  declaration: "frontmatter/declaration.tex"
+  # quotation:
+  #   text: "Thanks to my solid academic training, today I can write hundreds of words on virtually any topic without possessing a shred of information, which is how I got a good job in journalism."
+  #   attribution: Dave Barry
+  acknowledgements: "frontmatter/acknowledgements.tex"
+  publications: "frontmatter/publications.tex"
+  abbreviations: "frontmatter/abbreviations.tex"
+  # dedication: "frontmatter/dedication.tex"
+  # symbols: "frontmatter/symbols.tex"
+
+bibliography: [references.bib]
+csl: https://www.zotero.org/styles/harvard-cite-them-right
+
+execute:
+  echo: false
+  code-overflow: wrap
+
+# urlcolor changes the url color in the body of the PDF
+# linkcolor changes color of internal links (like to figures)
+# toclinkcolor changes color of toc, lof and lot links
+format:
+  quarto-thesis-pdf:
+    urlcolor: black
+    toclinkcolor: black
+    toc-depth: 2
+    keep-tex: true
+    # latex-clean: false
+
+filters:
+  - abstract-section
+reference-section-title: References

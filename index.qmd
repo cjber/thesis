@@ -1,0 +1,6 @@
+---
+execute:
+    echo: false
+---
+
+{{< include 01_introduction/01_introduction.qmd >}}

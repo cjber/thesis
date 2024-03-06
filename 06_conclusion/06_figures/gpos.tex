@@ -1,0 +1,52 @@
+\begin{figure*}[tbp]
+\centering{
+{\phantomsubcaption\label{nocomma}
+\begin{dependency}[edge vertical padding=1ex, label style = {font=\large, draw=white}]
+\tikzstyle{word}=[font=\large]
+\tikzstyle{poi}=[font=\bfseries\large]
+\depstyle{group}{minimum height=0pt, rounded corners=0, group style={thick, draw=black,trapezium, anchor=north, text depth=0, text height=0, yshift=-5pt}}
+\depstyle{blank}{group style={draw=white}}
+\begin{deptext}[column sep=0.2cm, row sep=0.2cm]
+|[word]| \textbf{(a)} \& |[word]| The \& |[word]| \textit{church} \& |[word]| stands \& |[word]| just \& |[word]| beside \& |[word]| the \& |[word]| \textit{post office} \& |[word]| near \& |[word]| the \& |[word]| \textit{bridge} \\
+
+\& \& |[poi]| POI \& \& \& \& \& |[poi]| POI \& \& \& |[poi]| POI \\
+\end{deptext}
+
+\depedge[edge unit distance=2.5ex]{3}{8}{Trajector}
+\depedge{8}{11}{Trajector}
+\depedge[edge below, edge unit distance=1ex]{8}{3}{Landmark}
+\depedge[edge below, edge unit distance=1ex]{11}{8}{Landmark}
+\deproot[align=center, edge unit distance=1.5ex]{4}{Location\\and\\Movement\\Verb}
+\deproot[align=center, edge unit distance=1.5ex]{5}{Spatial\\Qualifier}
+\deproot[align=center, edge unit distance=1.5ex]{6}{Spatial\\Relation}
+\deproot[align=center, edge unit distance=1.5ex]{9}{Spatial\\Relation}
+\end{dependency}
+}
+
+{\phantomsubcaption\label{comma}
+\begin{dependency}[edge vertical padding=1ex, label style = {font=\large, draw=white}]
+\tikzstyle{word}=[font=\large]
+\tikzstyle{poi}=[font=\bfseries\large]
+\depstyle{group}{minimum height=0pt, rounded corners=0, group style={thick, draw=black,trapezium, anchor=north, text depth=0, text height=0, yshift=-5pt}}
+\depstyle{blank}{group style={draw=white}}
+\begin{deptext}[column sep=0.2cm, row sep=0.2cm]
+|[word]| \textbf{(b)} \& |[word]| The \& |[word]| \textit{church} \& |[word]| stands \& |[word]| just \& |[word]| beside \& |[word]| the \& |[word]| \textit{post office} \& |[word]| near \& |[word]| the \& |[word]| \textit{bridge} \\
+
+\& \& |[poi]| POI \& \& \& \& \& |[poi]| POI \& \& \& |[poi]| POI \\
+\end{deptext}
+
+\depedge[edge unit distance=2ex]{3}{11}{Trajector}
+\depedge[edge unit distance=2.5ex]{3}{8}{Trajector}
+\depedge[edge below, edge unit distance=1ex]{11}{3}{Landmark}
+\depedge[edge below, edge unit distance=1ex]{8}{3}{Landmark}
+\deproot[align=center, edge unit distance=1.5ex]{4}{Location\\and\\Movement\\Verb}
+\deproot[align=center, edge unit distance=1.5ex]{5}{Spatial\\Qualifier}
+\deproot[align=center, edge unit distance=1.5ex]{6}{Spatial\\Relation}
+\deproot[align=center, edge unit distance=1.5ex]{9}{Spatial\\Relation}
+\end{dependency}
+}
+}
+
+\caption{Geographic spatial relationship diagram demonstrating the ability for an entity to be both a landmark and trajector (post office) in \textbf{(\subref{nocomma})}, and the ambiguity of some language; church may be the trajector for just the post office \textbf{(\subref{nocomma})}, or for both the post office and bridge \textbf{(\subref{comma})}. Entities are italicised with entity type displayed in bold underneath.}
+\label{fig-gpos}
+\end{figure*}

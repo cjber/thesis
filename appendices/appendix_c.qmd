@@ -1,0 +1,7 @@
+# Chapter 5 Appendix
+
+## Additional Figures
+
+![Dendrogram showing distribution of cluster members.](appendices_figures/clusters_d.png){#fig-dendrogram}
+
+@fig-dendrogram shows a dendrogram highlighting the hierarchical clusters of LAD embeddings. This figure suggests that there are three main clusters in these semantic embeddings.
