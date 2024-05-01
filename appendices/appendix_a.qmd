@@ -1,12 +1,32 @@
 # Chapter 3 Appendix
 
+## Additional detail for @tbl-eval and T-Tests
+
+This table shows the mean F~1~ score for each model, the harmonic mean of the precision and recall (@eq-fscore).
+
+$$
+F1 = \frac{2*Precision*Recall}{Precision+Recall} = \frac{2*TP}{2*TP+FP+FN}
+$${#eq-fscore}
+
+For each model the F~1~ score is cross validated against 3 test data subsets, providing standard deviation values (indicated by $\pm SD$), and used for significance testing. For this table the bold values indicate that the distribution of F~1~ scores for models that are significantly different compared to the distribution F~1~ scores of the Stanza model (the best performing pre-built model). This significance testing uses the `stats.ttest_ind` provided by the `scipy` Python library. Prior to T-Tests, the normality of the distribution of all models F~1~ scores was confirmed through a Shapiro-Wilk test using `scipy` `stats.shapiro` (all $p<0.05$).
+ 
+Significance testing in this chapter is simply used to demonstrate statistically that it is unlikely that the greater F~1~ scores achieved by the fine-tuned transformer models are due to random chance. Given all transformer models achieve significantly higher F~1~ scores compared to Stanza, while all other models do not, we did not consider a multiple testing correction to be necessary.
+
+## Wikipedia as a Data Source
+
+While this thesis primarily focusses on social media data in later chapters, Wikipedia was selected as the data source for this chapter. This first ensured that the fine-tuned models did not unfairly outperform existing models that are not intended for social media entity extraction. Additionally, Wikipedia is an established data source that has been used in related past work, unlike Reddit. The outputs of this chapter demonstrate that Wikipedia can be used as a source of user-generated geographic information, with place names that do not exist in existing gazetteers, despite its use as an established source of knowledge. 
+
+## Data Annotation
+
+Data annotation was performed by the first author as a single annotator. [Doccano](https://github.com/doccano/doccano) was used to assist with the speed of annotation, by providing a browser-based interface allowing for interactive annotation. This tool does not perform automatic annotation. Given this corpus has not been verified independently by multiple annotators, it may have some level of annotation error.
+
 ## Additional Model Metrics
 
-\ref{tbl-model-metrics} shows additional information regarding the models trained in @sec-transformer. This table highlights the trade-offs in model size and training time, particularly between CRF biLSTM and transformer models.
+Table \ref{tbl-model-metrics} shows additional information regarding the models trained in @sec-transformer. This table highlights the trade-offs in model size and training time, particularly between CRF biLSTM and transformer models.
 
 \begin{table}
     \centering
-    \caption{\label{tbl-model-metrics}Model test performance for each model trained on annotated Wikipedia data. Best F\textsubscript{1} score in bold. Italics indicate a significant difference in F\textsubscript{1} score with respect to 'DistilBERT'. \label{tbl-model-metrics}}
+    \caption{\label{tbl-model-metrics}Model test performance for each model trained on annotated Wikipedia data. Best F score in bold. Italics indicate a significant difference in F score with respect to 'DistilBERT'.}
     \fontsize{9}{11}\selectfont
     \begin{tabular}[t]{lccc}
     \toprule

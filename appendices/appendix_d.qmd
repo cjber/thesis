@@ -1,4 +1,4 @@
-# A Note on API Restrictions
+# A Note on API Restrictions {#sec-api-restrictions}
 
 Alterations made to social media API (particularly Reddit and Twitter), have significantly impeded further research, limiting ease of access by introducing prohibitive costs. Arguably these changes directly conflict with the open standards of the web as originally outlined by Tim Berners-Lee [@berners-lee2010;@cern2023], preventing free and open access to a repository of knowledge that is contributed voluntarily by unpaid users. As a result, despite API restrictions, it is possible to access this data indirectly through automated web-scraping, which is itself a grey area.
 

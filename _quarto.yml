@@ -6,10 +6,8 @@ book:
   title: Exploring Place from the Perspective of Informal Social Media Text
   author:
     name: Cillian Berragan
-  # search: true
-  # repo-actions: [edit]
-  # downloads: [pdf, epub]
-  # sharing: [twitter, facebook]
+  downloads: [pdf]
+  sharing: [twitter, facebook]
   cover-image: images/logo.png
   chapters:
     - index.qmd
@@ -26,10 +24,10 @@ book:
     - ./appendices/appendix_c.qmd
     - ./appendices/appendix_d.qmd
 
-  # site-url: https://nmfs-opensci.github.io/quarto-thesis/
-  # repo-url: https://github.com/nmfs-opensci/quarto-thesis
-  # repo-actions: [edit, source, issue]
-  # search: true
+  site-url: https://cjber.github.io/thesis/
+  repo-url: https://github.com/cjber/thesis
+  repo-actions: [edit, source, issue]
+  search: true
 
 thesis:
   supervisor:
@@ -64,10 +62,10 @@ execute:
 # toclinkcolor changes color of toc, lof and lot links
 format:
   quarto-thesis-pdf:
-    urlcolor: black
+    # urlcolor: black
     toclinkcolor: black
     toc-depth: 2
-    keep-tex: true
+    # keep-tex: true
     # latex-clean: false
 
 filters:

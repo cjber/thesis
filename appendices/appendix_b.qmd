@@ -1,10 +1,20 @@
 # Chapter 4 Appendix
 
-## Additional Figures
+## Reddit as a Data Source
 
-@fig-workflow2 gives a more detailed overview of the data processing of Reddit comments.
+At the time of writing @sec-connections, Reddit had an open API that allowed for large scale data collection above alternative websites like Quora, which does not have an API. This has since changed, and the API is no longer easily accessible for a low cost. Despite this, Reddit data is still more accessible compared with alternatives like Twitter or Quora, as the API is still less restrictive. More information regarding the accessibility of Reddit comment data is given in @sec-api-restrictions.
+
+## Additional Co-occurrence Detail
+
+@fig-workflow2 gives a more detailed overview of the data processing of Reddit comments. In this figure both Manchester and London are associated with 3 distinct users, with an overlap between users 'u1' and 'u3'. The components of the gravity model and association strength are then calculated from these values.
 
 ![Overview of the (a) Pre-processing pipeline, showing the generation of locations with their associated users, where users are associated if they mention the target location at least once in a comment. (b) Co-occurrence pipeline, demonstrating generation of $\mathbf{S}_i\mathbf{S}_j$ and $\mathbf{S}_{ij}$ for a connection between $i = \texttt{Manchester}$ and $j = \texttt{London}$.](appendices_figures/workflow_c.pdf){#fig-workflow2}
+
+Co-occurrences are only calculated between distinct polygons. This means that for any two places that appear within a single polygon, no co-occurrences are calculated. Due to this, @eq-pci never encounters a distance of 0 length, meaning no invalid values can be calculated. 
+
+In calculating co-occurrences, the frequency of mentions is derived from the number of users that mention them, rather than the total number of mentions. This both significantly reduces the processing complexity, and ensures outliers are less extreme. By choosing 'users' as our co-occurrence unit, rather than single comments, our results more closely align with the way people generate geographic associations broadly, rather than in specific contexts.
+
+Alternative methods for calculating the distance decay were considered, however our method balanced interpretation with complexity. Given there is no work that considers the distance decay of cognitive associations, our gravity model works on the simplest assumption; that there is a measurable impact of the distance between two locations and their association strength. Therefore, @eq-pci does not attempt to calculate more complex decay functions like exponential decay or distance half-life, which are established methods used in alternative data.
 
 ## Detailed Model Training
 

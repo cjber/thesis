@@ -5,11 +5,11 @@
 
 Berragan, C., Singleton, A., Calafiore, A. and Morley, J. (2023) 'Transformer based named entity recognition for place name extraction from unstructured text', _International Journal of Geographical Information Science_, 37(4), pp.747-766.
 
-DOI: [10.1080/13658816.2022.2133125](10.1080/13658816.2022.2133125).
+DOI: [10.1080/13658816.2022.2133125](10.1080/13658816.2022.2133125)
 
 ## Chapter Overview {-}
 
-This chapter presents the first of three empirical chapters, achieving the first aim of this thesis, improving the results of current place name identification systems. This chapter demonstrates that both a task and data specific model is able to outperform pre-built NER models (e.g. SpaCy: @qi2018, or Stanza: @honnibal2017), that are widely used in existing geoparsing systems. Outputs from this model are used to demonstrate that online volunteered text presents a significant geographic component, expanding existing sources of Volunteered Geographic Information (VGI). The methodology outlined in this paper is then implemented to build a model used in both @sec-connections and @sec-footprint, enabling higher quality outputs that would not be possible by using existing systems.
+This chapter presents the first of three empirical chapters, achieving the first aim of this thesis, improving the results of current place name identification systems. This chapter demonstrates that a task and data specific model is able to outperform pre-built NER models (e.g. SpaCy: @qi2018, or Stanza: @honnibal2017), that are widely used in existing geoparsing systems. Outputs from this model are used to demonstrate that online volunteered text presents a significant geographic component, expanding existing sources of Volunteered Geographic Information (VGI). The methodology outlined in this paper is then implemented to build a model used in both @sec-connections and @sec-footprint, enabling higher quality outputs that would not be possible by using existing systems.
 
 ## Abstract {-}
 
@@ -19,7 +19,7 @@ Place names embedded in online natural language text present a useful source of 
 
 ## Introduction
 
-Place names are frequently encountered in natural language and provide an additional geographic dimension to much of the textual information present online, when associated with spatial coordinates and geographic locations. Despite this, research in place name extraction primarily concentrates on entities as described by annotation schemes that do not explicitly consider geographic place names [@karimzadeh2019;@halterman2017;@hu2019]. Pre-built named entity recognition (NER) models based on these schemes are also not task specific; trained on data unrelated to the task they are used for, despite language involving place names varying significantly depending on the context [@purves2018]. When identifying place names in text, research typically only considers known administrative names and their associated strict boundaries, despite natural language often containing place names that either do not exist formally, are hyper-localised e.g. street names, or are alternative names that may be absent from administrative databases, which often only consider a single formal name.
+Place names are frequently encountered in natural language and provide an additional geographic dimension to much of the textual information present online. Despite this, research in place name extraction primarily concentrates on entities as described by annotation schemes that do not explicitly consider geographic place names [@karimzadeh2019;@halterman2017;@hu2019]. Pre-built named entity recognition (NER) models based on these schemes are also not task specific; trained on data unrelated to the task they are used for, despite language involving place names varying significantly depending on the context [@purves2018]. When identifying place names in text, research typically only considers known administrative names and their associated strict boundaries, despite natural language often containing place names that either do not exist formally, are hyper-localised e.g. street names, or are alternative names that may be absent from administrative databases, which often only consider a single formal name.
 
 The training corpora used by pre-built NER models typically identifies a number of entities that have no relevance to geographic place names, e.g. persons, and those that have some relevance in specific contexts; locations, geopolitical entities or facilities [@weischedelralph2013;@tjongkimsang2003]. Notably, they do not specifically target a 'place name' entity, meaning, while often these three related entity types may often refer to a place name, this is not always the case. Additionally, these corpora consist of text that often differs in structure, compared with the text being processed by models trained using them; for example, social media text is typically more informal compared with the news articles used to build the popular dataset, CoNLL03 [@tjongkimsang2003].
 
@@ -299,11 +299,3 @@ The recent development of pre-trained language models and their suitability for 
 Evaluation against pre-built NER models on Table \ref{tbl-eval} shows that performance for place name extraction is greatly improved, particularly with respect to recall, a notable issue with past studies [@hu2019;@karimzadeh2019]. The construction of an NER model for the task specific extraction of place names moves towards systems that appropriately consider the geographic elements present in natural language. The large number of place names that are absent from the GeoNames gazetteer suggests that geoparsing and related work likely misses a substantial amount of geographic information present in text. The dataset produced through this work aims to assist with filling these gaps, while the methodology described enables an approach that may be mirrored and applied to further work on other data sources.
 
 Finally, both 'place' focussed annotation schemes describe the use of 'nominal' place related entities [@mani2010;@pustejovsky2017]. While out of the scope of our work, we would like to encourage the focus on extracting this additional geographic information from text. Often in language the use of these non-specific terms are used, for example 'I visited the shops', 'York is a city', provide geographically specific information. 'The shops' with enough context may provide a specific geographic location, and similarly the link between 'York' -\> 'city' could be explored [@couclelis2010].
-
-## Data and codes availability statement {-}
-
-The data and codes that support the findings of this study are available at the public FigShare link (<https://doi.org/10.6084/m9.figshare.13415255.v1>). Instructions for using the data and code are provided as a README within the FigShare repository.
-
-## Disclosure statement {-}
-
-No potential competing interest was reported by the authors.

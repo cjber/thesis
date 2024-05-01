@@ -1,7 +1,35 @@
 # Chapter 5 Appendix
 
-## Additional Figures
+## Dendrogram Clusters
 
 ![Dendrogram showing distribution of cluster members.](appendices_figures/clusters_d.png){#fig-dendrogram}
 
-@fig-dendrogram shows a dendrogram highlighting the hierarchical clusters of LAD embeddings. This figure suggests that there are three main clusters in these semantic embeddings.
+@fig-dendrogram shows a dendrogram highlighting the hierarchical clusters of LAD embeddings. This figure confirms that there are three main clusters in these semantic embeddings, which were automatically chosen by hierarchical clustering.
+
+## Zero Shot Tests
+
+Table \ref{tbl-zero-shot} shows examples from a zero shot classification using our default prompt. We intentionally keep the prompt vague to ensure that the model makes its own decisions regarding the classifications. The interpretation of whether a certain nationality is most appropriate is therefore decided based on the embedded semantic information contained within the model, built from the human text it was trained on. Place names are intentionally included in each sentence in this table, given only comments containing place names are analysed in this chapter.
+
+\begin{table}
+    \centering
+    \caption{\label{tbl-zero-shot}Zero Shot Examples.}
+  \fontsize{9}{11}\selectfont
+  \begin{tabular}{llr}
+    \toprule
+  Sentence & Label & Confidence \\
+    \midrule
+  I hate Scotland. & British & 0.54 \\
+  I love Scotland. & Scottish & 0.97 \\
+  I hate Wales. & British & 0.58 \\
+  I love Wales. & Welsh & 0.99 \\
+  I hate England. & British & 0.48 \\
+  I love England. & English & 0.53 \\
+  I live in Manchester. & British & 0.48 \\
+  I live in Glasgow. & Scottish & 0.64 \\
+  I'm gonnae see ya in bonnie Aberdeen. & Scottish & 0.82 \\
+  I'm going to see you in Aberdeen. & Scottish & 0.66 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The model clearly exhibits an understanding of associations with identities and sentiment towards countries. For example, it believes a dislike for Scotland is more likely to be associated with the British identity, and while a love for Scotland is strongly Scottish (0.97 confidence), a love for England is more closely associated with a British identity (0.53). The model also exhibits an understanding of associations between these identities and their constant countries; Glasgow is more Scottish and Manchester is more British. Finally, colloquial slang appears to strongly influence the model classifications. In the final two examples, the inclusion of Scottish slang causes the model to increase its confidence in the 'Scottish' classification.
