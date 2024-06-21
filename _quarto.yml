@@ -4,6 +4,7 @@ project:
 
 book:
   title: Exploring Place from the Perspective of Informal Social Media Text
+  date: last-modified
   author:
     name: Cillian Berragan
   downloads: [pdf]

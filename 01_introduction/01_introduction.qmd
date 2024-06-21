@@ -52,4 +52,6 @@ Berragan, C., Singleton, A., Calafiore, A. \& Morley, J. (2024) 'Mapping Cogniti
 
 @sec-footprint builds on the previous chapter and considers the ability to specifically compare the vernacular geographies emerging from text data in a social media corpus, by analysing and comparing the semantic properties of text relating to locations. This chapter uses a transformer neural network language model to build contextual semantic embeddings for each comment that contains a place name, these were then used to generate an aggregate measure of local authorities across the UK, which we name semantic footprints. This measure demonstrated that the 'semantic footprint' of locations across the UK incorporates geographic properties, and can be used to highlight areas that are semantically isolated from the rest of the country.
 
-The content of this chapter is currently _accepted_ for publication in _Computers, Environment and Urban Systems_.
+The content of this chapter can be found in the following published journal article:
+
+Berragan, C., Singleton, A., Calafiore, A. \& Morley, J. (2024) 'Mapping Great Britain's Semantic Footprints through a Large Language Model Analysis of Reddit Comments', \textit{Computers, Environment and Urban Systems}. doi:10.1016/j.compenvurbsys.2024.102121.

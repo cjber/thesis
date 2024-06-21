@@ -1,7 +1,11 @@
 # Mapping Great Britain's Semantic Footprints through a Large Language Model Analysis of Reddit Comments {#sec-footprint}
 \chaptermark{Mapping Great Britain's Semantic Footprints}
 
-**The content of this chapter is _accepted_ for publication in _Computers, Environment and Urban Systems_.**
+**The content of this chapter is _published_ as a research paper in _Computers, Environment and Urban Systems_:**
+
+Berragan, C., Singleton, A., Calafiore, A. \& Morley, J. (2024) 'Mapping Great Britain's Semantic Footprints through a Large Language Model Analysis of Reddit Comments', \textit{Computers, Environment and Urban Systems}.
+
+DOI: [10.1016/j.compenvurbsys.2024.102121](https://doi.org/10.1016/j.compenvurbsys.2024.102121)
 
 ## Chapter Overview {-}
 
